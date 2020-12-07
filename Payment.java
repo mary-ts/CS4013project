@@ -11,4 +11,10 @@ public class Payment {
 		ArrayList<Integer> property = new ArrayList<Integer>();
 		property.add(payments);
 	}
+	
+	public ArrayList<Integer> getPayments() {
+		ArrayList<Integer> property = new ArrayList<Integer>();
+		return property;
+	}
+	
 }
