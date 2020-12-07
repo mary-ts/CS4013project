@@ -5,7 +5,7 @@ public class Property {
     private double marketValue;
     private boolean privateResidence;
 
-    public Property(String owner, String address, String eircode, String location, Double marketValue, Boolean privateResidence) {
+    public Property(String owner, String address, String eircode, String location, double marketValue, boolean privateResidence) {
         this.owner = owner;
         this.address = address;
         this.eircode = eircode;
