@@ -1,9 +1,37 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Property {
     private String owner, address, eircode, location;
     private double marketValue;
     private boolean privateResidence;
+    public ArrayList<Payment> paymentRecord;
+
+    public double overdue;
+    public double currentTax;
+    public int currentYear = 0;
+
+    /*
+    //these method names are nonsense, brain go nahh
+
+    public void vdn(){
+        for(Payment n: paymentRecord){
+            if(n.getYear() == currentYear - 1 && n.getBalance() > 0){
+                overdue += n.getBalance();
+            }
+        }
+    }
+
+    public void dga(){
+        for(Payment n: paymentRecord){
+            if(n.getYear() == currentYear){
+
+            }
+        }
+    }
+
+     */
+
 
     public Property(String owner, String address, String eircode, String location, double marketValue, boolean privateResidence) {
         this.owner = owner;
@@ -12,6 +40,7 @@ public class Property {
         this.location = location;
         this.marketValue = marketValue;
         this.privateResidence = privateResidence;
+        paymentRecord = new ArrayList<>();
     }
 
     public String getOwner() {
@@ -54,8 +83,12 @@ public class Property {
         this.privateResidence = privateResidence;
     }
 
-    @Override
-    public String toString() {
+    public void save(Payment payed){
+        paymentRecord.add(payed);
+    }
+
+
+    public String propertyToString() {
         return "Property:\n" +
                 "owner=" + owner +
                 ", address=" + address +
