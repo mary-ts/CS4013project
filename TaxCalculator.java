@@ -1,18 +1,27 @@
+
 public class TaxCalculator {
 
-	public double totalTax, fixedCost, locationTax;
-	private static double[] value = {150000, 400000, 650000};
-	private static double[] rate = {.01, .02, .04};
-
+	public double totalTax, marketTax, locationTax;
+	private double fixedCost = 100;
+	private double[] value;
+	private double[] rate;
 	
-	private static String[] locations = {"City","Large Town", "Small Town", "Village", "Countryside"}; 
-	private static int[] locationVals = {100, 80, 60, 50, 25};
+	private String[] locations; 
+	private int[] locationVals;
 	
-	//Will probably have 2 constructors- 1 default and 1 custom //
 	public TaxCalculator() {
-		
-			}
-   
+		value = new double[]{150000, 400000, 650000};
+		rate = new double[]{.01, .02, .04};
+		locations = new String[]{"City","Large Town", "Small Town", "Village", "Countryside"};
+		locationVals = new int[]{100, 80, 60, 50, 25};
+	}
+	
+	public TaxCalculator(double[] value, double[] rate, String[] locations, int[] locationVals) {
+		this.value = value;
+	    this.rate = rate;
+	    this.locations = locations;
+	    this.locationVals = locationVals;
+	}
    
 	public double getMarketTax(Property p) {
 		p.getMarketValue();
@@ -33,13 +42,12 @@ public class TaxCalculator {
 		} return locationTax;
 	}
 
-public double calculateTotalTax(Property p) {
-	if(p.isPrivateResidence() == true) {
-		fixedCost += 100;
-	}
-	totalTax = ((p.getMarketValue()/100)*marketTax) +
-		locationTax + fixedCost;		
+	public double getTotalTax(Property p) {
+		if(p.isPrivateResidence() == true) {
+			fixedCost += 100;
+		}
+		totalTax = ((p.getMarketValue()/100)*marketTax) +
+			locationTax + fixedCost;		
 		return totalTax;
 	}
-	
 }
