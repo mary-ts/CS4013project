@@ -11,8 +11,15 @@ public class TaxCalculator {
 		
 			}
    
+   
 	public double getMarketTax(Property p) {
-		
+		p.getMarketValue();
+		for(int i=0; i < value.length; i++) {
+			if(p.getMarketValue() < value[i]) {
+				marketTax = value[i];
+			}
+		}
+		return marketTax;
 	}
 	
 	public double getLocationTax(Property p) {
