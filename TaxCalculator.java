@@ -22,16 +22,28 @@ public class TaxCalculator {
 	    this.locations = locations;
 	    this.locationVals = locationVals;
 	}
-   
+	
+
 	public double getMarketTax(Property p) {
-		p.getMarketValue();
+		double v = p.getMarketValue();
 		for(int i=0; i < value.length; i++) {
-			if(p.getMarketValue() < value[i]) {
+			if(v < value[i]) {
 				marketTax = rate[i];
 			}
 		}
 		return marketTax;
 	}
+	
+	public double getLocationTax(Property p) {
+		String house = p.getLocation();
+		for(int i=0; i < locations.length; i++) {
+			if(house.equals(locations[i])) {
+				locationTax = locationVals[i];
+			}
+		}
+		return locationTax;
+	}
+
 	
 	public double getLocationTax(Property p) {
 		p.getLocation();
