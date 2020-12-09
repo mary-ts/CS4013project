@@ -2,6 +2,8 @@ public class TaxCalculator {
 
 	public double totalTax, fixedCost, locationTax;
 	private static double[] value = {150000, 400000, 650000};
+	private static double[] rate = {.01, .02, .04};
+
 	
 	private static String[] locations = {"City","Large Town", "Small Town", "Village", "Countryside"}; 
 	private static int[] locationVals = {100, 80, 60, 50, 25};
@@ -16,7 +18,7 @@ public class TaxCalculator {
 		p.getMarketValue();
 		for(int i=0; i < value.length; i++) {
 			if(p.getMarketValue() < value[i]) {
-				marketTax = value[i];
+				marketTax = rate[i];
 			}
 		}
 		return marketTax;
