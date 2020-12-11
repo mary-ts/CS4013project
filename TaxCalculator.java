@@ -44,12 +44,13 @@ public class TaxCalculator {
 		} return locationTax;
 	}
 
+
 	public double getTotalTax(Property p) {
 		if(p.isPrivateResidence() == true) {
 			fixedCost += 100;
 		}
-		totalTax = ((p.getMarketValue()/100)*marketTax) +
-			locationTax + fixedCost;		
+		totalTax = ((p.getMarketValue()/100)*(getMarketTax(p)) +
+			(getLocationTax(p)) + fixedCost);		
 		return totalTax;
 	}
 }
