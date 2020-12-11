@@ -1,56 +1,57 @@
+import java.util.Arrays;
 
 public class TaxCalculator {
 
-	public double totalTax, marketTax, locationTax;
-	private double fixedCost = 100;
-	private double[] value;
-	private double[] rate;
-	
-	private String[] locations; 
-	private int[] locationVals;
-	
-	public TaxCalculator() {
-		value = new double[]{150000, 400000, 650000};
-		rate = new double[]{.01, .02, .04};
-		locations = new String[]{"City","Large Town", "Small Town", "Village", "Countryside"};
-		locationVals = new int[]{100, 80, 60, 50, 25};
-	}
-	
-	public TaxCalculator(double[] value, double[] rate, String[] locations, int[] locationVals) {
-		this.value = value;
-	    this.rate = rate;
-	    this.locations = locations;
-	    this.locationVals = locationVals;
-	}
+    public double totalTax, marketTax, locationTax;
+    private double fixedCost = 100;
+    private double[] value;
+    private double[] rate;
 
-	   
-	public double getMarketTax(Property p) {
-		double v = p.getMarketValue();
-		for(int i=0; i < value.length; i++) {
-			if(v < value[i]) {
-				marketTax = rate[i];
-			}
-		}
-		return marketTax;
-	}
-	
-	
-	public double getLocationTax(Property p) {
-		p.getLocation();
-		for(int i=0; i < locations.length; i++) {
-			if(p.equals(locations[i])) {
-				locationTax = locationVals[i];
-			}
-		} return locationTax;
-	}
+    private String[] locations;
+    private int[] locationVals;
+
+    public TaxCalculator() {
+        value = new double[]{0, 150000, 400000, 650000};
+        rate = new double[]{0, .01, .02, .04};
+        locations = new String[]{"City","Large Town", "Small Town", "Village", "Countryside"};
+        locationVals = new int[]{100, 80, 60, 50, 25};
+    }
+
+    public TaxCalculator(double[] value, double[] rate, String[] locations, int[] locationVals) {
+        this.value = value;
+        this.rate = rate;
+        this.locations = locations;
+        this.locationVals = locationVals;
+    }
 
 
-	public double getTotalTax(Property p) {
-		if(p.isPrivateResidence() == true) {
-			fixedCost += 100;
-		}
-		totalTax = ((p.getMarketValue()/100)*(getMarketTax(p)) +
-			(getLocationTax(p)) + fixedCost);		
-		return totalTax;
-	}
+    public double getMarketTax(Property p) {
+        double v = p.getMarketValue();
+        for(int i = value.length-1; i > 0; i--) {
+            if(v >= value[i]) {
+                marketTax = rate[i];
+                break;
+            }
+        }
+        return marketTax;
+    }
+
+
+    public double getLocationTax(Property p) {
+        String location = p.getLocation();
+        for(int i=0; i < locations.length; i++) {
+            if(location.equalsIgnoreCase(locations[i])) {
+                locationTax = locationVals[i];
+            }
+        } return locationTax;
+    }
+
+    public double getTotalTax(Property p) {
+        if(p.isPrivateResidence() == true) {
+            fixedCost += 100;
+        }
+        totalTax = ((p.getMarketValue()/100)*getMarketTax(p)) +
+                getLocationTax(p) + fixedCost;
+        return totalTax;
+    }
 }
