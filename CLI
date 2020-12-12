@@ -20,7 +20,7 @@ public class CLI {
             System.out.println("Property Owner Name: ");
             String name = in.nextLine();
             PropertyOwner p = new PropertyOwner(name);
-            System.out.println("R)egister property, S)how properties");
+            System.out.println("R)egister property, S)how properties, P)ay Tax, V)iew Payments");
             command = in.nextLine().toUpperCase();
             if (command.equals("R"))
             {
@@ -47,9 +47,9 @@ public class CLI {
             	// insert payments made here //
             }
             
-         
+            
+            
         }
 
     }
 }
-
