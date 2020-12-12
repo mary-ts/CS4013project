@@ -37,9 +37,17 @@ public class CLI {
                 p.registerProperty(address, eir, location, mVal, priv);
 
             }  else if (command.equals("S")) {
-                // insert array of properties here//
-                p.getProperties();
+               System.out.println( p.viewProperties());
+                
+                
+            } else if (command.equals("P")) {
+            	// insert payment method here //
+           
+            } else if (command.equals("V")) {
+            	// insert payments made here //
             }
+            
+         
         }
 
     }
