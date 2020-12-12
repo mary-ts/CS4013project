@@ -11,6 +11,14 @@ public class Payment {
         this.overdue = overdue;
     }
 
+    public double getTax() {
+        return tax;
+    }
+
+    public void setTax(double tax) {
+        this.tax = tax;
+    }
+
     public int getYear() {
         return year;
     }
@@ -27,9 +35,16 @@ public class Payment {
         this.isTaxPaid = isTaxPaid;
     }
 
+    public double getOverdue() {
+        return overdue;
+    }
+
+    public void setOverdue(double overdue) {
+        this.overdue = overdue;
+    }
 
     public String toString(){
-        return year + " Tax due: €" + tax + "   Tax paid: €" + isTaxPaid + "   Overdue: €"
+        return year + " Tax due: €" + tax + "   Is tax paid: " + isTaxPaid + "   Overdue: €"
                 + overdue + "\n";
     }
 

@@ -26,11 +26,12 @@ public class PropertyOwner{
         return temp;
     }
 
-    //not working yet
-    public void makePayment(Property prop) {
-        Payment payment = new Payment(currentYear, true);
-        prop.save(payment);
-        System.out.print(payment.toString());
+    //myChosenYear needs to be changed back to currentYear after testing. Also changed in Property class. FIX
+    public void makePayment(Property p, int myChosenYear) {
+        Payment payment = new Payment(myChosenYear, p.getTax(),true, p.getOverdue());
+        p.save(payment);
+        p.fillFullPaymentRecord();
+        System.out.print(p.toString());
     }
 
     public String specificQuery(int year){
