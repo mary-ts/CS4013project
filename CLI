@@ -4,42 +4,44 @@ import java.util.Scanner;
 
 
 public class CLI {
-	   private Scanner in;
-	   private String command;
-	   
-	public CLI() {
-		  in = new Scanner(System.in);
-	}
+    private Scanner in;
+    private String command;
 
-	public void run(PropertyOwner setup)
-	         throws IOException
-		   {
-		      boolean more = true;
-		      
-		      while (more) {
-		    	  System.out.println("Property Owner Name: ");
-		          String name = in.nextLine();
-		          PropertyOwner p = new PropertyOwner(name);
-		          System.out.println("R)egister property /n S)how properties");
-		          command = in.nextLine().toUpperCase();
-		          if (command.equals("R"))
-		          {
-		        	  System.out.println("Enter Address: "); 
-		        	    String address = in.nextLine(); 
-		        	    System.out.println("Enter Eircode: "); 
-		        	    String eir = in.nextLine(); 
-		        	    System.out.println("Enter location: "); 
-		        	    String location = in.nextLine(); 
-		        	    System.out.println("Enter market value: "); 
-		        	    double mVal = in.nextDouble(); 
-		        	    System.out.println("Private Residence? T/F: "); 
-		        	    boolean priv = in.nextBoolean(); 
-		        	  p.registerProperty(address, eir, location, mVal, priv);
-		          }  else if (command.equals("S")) {
-		        	  // insert array of properties here//
-		          }
-		      }
-	  
-		   }
+    public CLI() {
+        in = new Scanner(System.in);
+    }
+
+    public void run()
+            throws IOException
+    {
+        boolean more = true;
+
+        while (more) {
+            System.out.println("Property Owner Name: ");
+            String name = in.nextLine();
+            PropertyOwner p = new PropertyOwner(name);
+            System.out.println("R)egister property, S)how properties");
+            command = in.nextLine().toUpperCase();
+            if (command.equals("R"))
+            {
+                System.out.println("Enter Address: ");
+                String address = in.nextLine();
+                System.out.println("Enter Eircode: ");
+                String eir = in.nextLine();
+                System.out.println("Enter location (City, Large Town, Small Town, Village, Countryside): ");
+                String location = in.nextLine();
+                System.out.println("Enter market value: ");
+                double mVal = in.nextDouble();
+                System.out.println("Private Residence? true/false: ");
+                boolean priv = in.nextBoolean();
+                p.registerProperty(address, eir, location, mVal, priv);
+
+            }  else if (command.equals("S")) {
+                // insert array of properties here//
+                p.getProperties();
+            }
+        }
+
+    }
 }
 
