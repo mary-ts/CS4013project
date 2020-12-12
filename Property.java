@@ -2,35 +2,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Property {
+    private TaxCalculator taxCalc;
     private String owner, address, eircode, location;
     private double marketValue;
     private boolean privateResidence;
-    public ArrayList<Payment> paymentRecord;
-
-    public double overdue;
-    public double currentTax;
-    public int currentYear = 0;
-
-    /*
-    //these method names are nonsense, brain go nahh
-
-    public void vdn(){
-        for(Payment n: paymentRecord){
-            if(n.getYear() == currentYear - 1 && n.getBalance() > 0){
-                overdue += n.getBalance();
-            }
-        }
-    }
-
-    public void dga(){
-        for(Payment n: paymentRecord){
-            if(n.getYear() == currentYear){
-
-            }
-        }
-    }
-
-     */
+    private ArrayList<Payment> paymentRecord;
+    private ArrayList<Payment> fullPaymentRecord;
+    private int yearCreated;
+    private double tax;
+    private double overdue;
 
 
     public Property(String owner, String address, String eircode, String location, double marketValue, boolean privateResidence) {
@@ -40,9 +20,10 @@ public class Property {
         this.location = location;
         this.marketValue = marketValue;
         this.privateResidence = privateResidence;
+        yearCreated = (LocalDate.now()).getYear();
         paymentRecord = new ArrayList<>();
-        TaxCalculator taxCalc = new TaxCalculator();
-        currentTax = taxCalc.getTotalTax(this);
+        fullPaymentRecord = new ArrayList<>();
+        tax = taxCalc.getTotalTax(this);
         String[] data = {owner, address, eircode, location, String.valueOf(marketValue), String.valueOf(privateResidence)};
         CSV.writeCSVFile("PropertyDetails.csv", data);
     }
@@ -87,55 +68,53 @@ public class Property {
         this.privateResidence = privateResidence;
     }
 
+    public int getYearCreated() {
+        return yearCreated;
+    }
+
+    public double getTax() {
+        return tax;
+    }
+
+    public ArrayList<Payment> getFullPaymentRecord() {
+        return fullPaymentRecord;
+    }
+
+    public void fillFullPaymentRecord(){
+        int mostRecentPay = paymentRecord.get(paymentRecord.size()).getYear();
+        int yearsElapsed = mostRecentPay - yearCreated;
+        int count = 1;
+        for(int i = yearCreated; i <= yearsElapsed; i++){
+            if(paymentRecord.get(count).getYear() == i){
+                fullPaymentRecord.add(paymentRecord.get(count));
+            }else {
+                fullPaymentRecord.add(new Payment(i, false));
+            }
+        }
+    }
+
+    public void yearlyOverdue(){
+        for(Payment n: fullPaymentRecord){
+            if(n.isTaxPaid == false){
+                overdue = 0;
+            }
+            if(n.isTaxPaid == false){
+                if(overdue == 0) {
+                    overdue = tax;
+                }
+                overdue = taxCalc.unpaidPenalty(overdue);
+            }
+        }
+    }
     public void save(Payment payed){
         paymentRecord.add(payed);
     }
-    
-    
-    public void save(Payment payed){
-        paymentRecord.add(payed);
-    }
-
-    public ArrayList<Payment> getPaymentRecord() {
-        return paymentRecord;
-    }
-
-    public void setPaymentRecord(ArrayList<Payment> paymentRecord) {
-        this.paymentRecord = paymentRecord;
-    }
-
-    public double getOverdue() {
-        return overdue;
-    }
-
-    public void setOverdue(double overdue) {
-        this.overdue = overdue;
-    }
-
-    public double getCurrentTax() {
-        return currentTax;
-    }
-
-    public void setCurrentTax(double currentTax) {
-        this.currentTax = currentTax;
-    }
-
-    public int getCurrentYear() {
-        return currentYear;
-    }
-
-    public void setCurrentYear(int currentYear) {
-        this.currentYear = currentYear;
-    }
 
 
-    public String propertyToString() {
-        return "Property:\n" +
-                "owner=" + owner +
-                ", address=" + address +
-                ", eircode=" + eircode +
-                ", location=" + location +
-                ", marketValue=" + marketValue +
-                ", privateResidence=" + privateResidence;
+    public String toString() {
+        return "Property:\n" + "Owner: " + owner + ", Address: " + address + ", Eircode: "
+                + eircode + ", Location: " + location + ", MarketValue: " + marketValue +
+                ", PrivateResidence: " + privateResidence + "\n" + year + "  Tax due: € "+
+                tax + ", Overdue: €"; //+ overdueTax() + "\n";
     }
 }
