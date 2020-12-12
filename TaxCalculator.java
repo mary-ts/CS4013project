@@ -54,4 +54,9 @@ public class TaxCalculator {
                 getLocationTax(p) + fixedCost;
         return totalTax;
     }
+    
+    public double unpaidPenalty(double x) {
+		x = x + ((x/100)*7);
+		return x;
+	}
 }
