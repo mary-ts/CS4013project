@@ -36,6 +36,8 @@ public class CLI {
 		        	    System.out.println("Private Residence? T/F: "); 
 		        	    boolean priv = in.nextBoolean(); 
 		        	  p.registerProperty(address, eir, location, mVal, priv);
+		          }  else if (command.equals("S")) {
+		        	  // insert array of properties here//
 		          }
 		      }
 	  
