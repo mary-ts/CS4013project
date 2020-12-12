@@ -21,7 +21,8 @@ public class PropertyOwner{
     public String viewProperties(){
         String temp = "";
         for(Property n: properties){
-            temp += n.toString();
+            Payment payment = new Payment(currentYear, n.getTax(),false, n.getOverdue());
+            payment.toString();
         }
         return temp;
     }

@@ -106,19 +106,26 @@ public class Property {
     }
 
     public void yearlyOverdue(){
-        for(int i = 0; i < fullPaymentRecord.size(); i++){
-            if(fullPaymentRecord.get(i).getIsTaxPaid() && i < fullPaymentRecord.size() - 1){
+        double totalOverdue = 0;
+        for(int i = 0; i < fullPaymentRecord.size() - 1; i++){
+            double tempTax = 0;
+            if(fullPaymentRecord.get(i).getIsTaxPaid()){
                 fullPaymentRecord.get(i + 1).setOverdue(0);
                 fullPaymentRecord.get(i + 1).setTax(permanentTax);
+                totalOverdue = 0;
             }
             if(!fullPaymentRecord.get(i).getIsTaxPaid()){
                 if(fullPaymentRecord.get(i).getOverdue() == 0) {
                     overdue = permanentTax;
                 }
+                //tempTax = overdue;
+                totalOverdue += overdue;
+                fullPaymentRecord.get(i + 1).setOverdue(totalOverdue);
                 overdue = taxCalc.unpaidPenalty(overdue);
-                tax = overdue;
+                fullPaymentRecord.get(i + 1).setTax(overdue);
             }
         }
+        overdue = 0;
     }
 
     public void save(Payment payed){
@@ -128,8 +135,8 @@ public class Property {
 
     public String toString() {
         String temp  = "";
-        for(Payment n: fullPaymentRecord){
-            temp += n.toString();
+        for(Payment m: paymentRecord){
+            temp += m.toString();
         }
         return "Property:\n" + "Owner: " + owner + ", Address: " + address + ", Eircode: "
                 + eircode + ", Location: " + location + ", MarketValue: " + marketValue +
