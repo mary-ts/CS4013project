@@ -25,7 +25,7 @@ public class TaxCalculator {
     }
 
 
-    public double getMarketTax(Property p) {
+    private double getMarketTax(Property p) {
         double v = p.getMarketValue();
         for(int i = value.length-1; i > 0; i--) {
             if(v >= value[i]) {
@@ -37,7 +37,7 @@ public class TaxCalculator {
     }
 
 
-    public double getLocationTax(Property p) {
+    private double getLocationTax(Property p) {
         String location = p.getLocation();
         for(int i=0; i < locations.length; i++) {
             if(location.equalsIgnoreCase(locations[i])) {
