@@ -1,7 +1,9 @@
 import java.io.IOException;
 import java.util.Scanner;
 
-
+/* 
+    @Author: Mary Tease, 19256434
+    */
 public class PropertyOwnerCLI {
     private Scanner in;
     private String command;
