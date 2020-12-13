@@ -5,8 +5,7 @@ public class ManagementCLI {
     private Scanner in;
     private String command;
     private String command2;
-    private String command3;
-
+    
     public ManagementCLI(){
         in = new Scanner(System.in);
     }
