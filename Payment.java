@@ -4,12 +4,12 @@ public class Payment {
     private double tax;
     private double overdue;
 
-    public Payment(int year, double tax, boolean isTaxPaid, double overdue){
+    public Payment(int year, double tax, boolean isTaxPaid, double overdue, String owner, String eircode){
         this.year = year;
         this.isTaxPaid = isTaxPaid;
         this.tax = tax;
         this.overdue = overdue;
-        String[] data = {Property.getOwner(), Property.getEircode(), String.valueOf(year), String.valueOf(tax), String.valueOf(isTaxPaid), String.valueOf(overdue)};
+        String[] data = {owner, eircode, String.valueOf(year), String.valueOf(tax), String.valueOf(isTaxPaid), String.valueOf(overdue)};
         //CSV.writeCSVFile("TaxDetails.csv", data);
     }
 

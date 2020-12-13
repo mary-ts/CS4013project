@@ -1,11 +1,9 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Property {
     private TaxCalculator taxCalc;
-    private static String owner, eircode;
-    private String address, location;
+    private String owner, eircode, address, location;
     private double marketValue;
     private boolean privateResidence;
     private ArrayList<Payment> paymentRecord;
@@ -29,15 +27,16 @@ public class Property {
         permanentTax = taxCalc.getTotalTax(this);
         tax = permanentTax;
         String[] data = {owner, address, eircode, location, String.valueOf(marketValue), String.valueOf(privateResidence)};
-
         if (isPropertyinCSV()) {
             CSV.writeCSVFile("PropertyDetails.csv", data);
-            save(new Payment(yearCreated, this.getTax(), false, this.getOverdue()));
+            save(new Payment(yearCreated, this.getTax(), false, this.getOverdue(), owner, eircode));
             fillFullPaymentRecord();
         }
+        save(new Payment(yearCreated, this.getTax(), false, this.getOverdue(), owner, eircode));
+        fillFullPaymentRecord();
     }
 
-    public static String getOwner() {
+    public String getOwner() {
         return owner;
     }
 
@@ -45,7 +44,7 @@ public class Property {
         return address;
     }
 
-    public static String getEircode() {
+    public String getEircode() {
         return eircode;
     }
 
@@ -77,10 +76,6 @@ public class Property {
         return tax;
     }
 
-    public void setTax(double tax) {
-        this.tax = tax;
-    }
-
     public double getOverdue() {
         return overdue;
     }
@@ -98,7 +93,7 @@ public class Property {
                 fullPaymentRecord.add(paymentRecord.get(count));
                 count++;
             } else {
-                fullPaymentRecord.add(new Payment(i, tax, false, overdue));
+                fullPaymentRecord.add(new Payment(i, tax, false, overdue, owner, eircode));
             }
             yearlyOverdue();
         }
@@ -138,28 +133,7 @@ public class Property {
                 return;
             }
         }
-        save(new Payment(year, getTax(), true, getOverdue()));
-    }
-
-    public boolean isPropertyinCSV(){
-        ArrayList properties = CSV.readCSVFile("PropertyDetails.csv");
-        String[] headings = (String[]) properties.get(0);
-        boolean added = false;
-
-        int index = 0;
-        for (int i = 0; i < headings.length; i++) {
-            if (headings[i].trim().equalsIgnoreCase("Eircode")) {
-                index = i;
-                break;
-            }
-        }
-
-        for (int i = 0; i < properties.size(); i++) {
-            String[] tmp = (String[]) properties.get(i);
-            if (tmp[index].trim().equals(eircode))
-                added = true;
-        }
-        return added;
+        save(new Payment(year, getTax(), true, getOverdue(), owner, eircode));
     }
 
     public String toString() {

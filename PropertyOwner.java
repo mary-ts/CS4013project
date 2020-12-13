@@ -28,17 +28,22 @@ public class PropertyOwner{
     public String viewProperties(){
         String temp = "";
         for(Property n: properties){
-            n.save(new Payment(currentYear, n.getTax(),false, n.getOverdue()));
+            n.save(new Payment(currentYear, n.getTax(),false, n.getOverdue(), n.getOwner(), n.getEircode()));
             n.fillFullPaymentRecord();
             temp += n.toString() + n.taxToString();
         }
         return temp;
     }
 
-    public void makePayment(Property p) {
-        p.fillFullPaymentRecord();
-        p.check(currentYear);
-        p.fillFullPaymentRecord();
+    public void makePayment(String eircode) {
+        for (Property n : properties) {
+            if (n.getEircode().equalsIgnoreCase(eircode)) {
+                n.fillFullPaymentRecord();
+                n.check(currentYear);
+                n.fillFullPaymentRecord();
+                break;
+            }
+        }
     }
 
     public String specificQuery(int year){
@@ -54,10 +59,10 @@ public class PropertyOwner{
         return list;
     }
 
-    public String specificQuery(Property p){
+    public String specificQuery(String eircode){
         String list = "";
         for(Property n: properties){
-            if(n == p){
+            if (n.getEircode().equalsIgnoreCase(eircode)) {
                 list = n.toString();
                 ArrayList<Payment> temp =  n.getFullPaymentRecord();
                 for(Payment m: temp){
