@@ -9,6 +9,8 @@ public class Payment {
         this.isTaxPaid = isTaxPaid;
         this.tax = tax;
         this.overdue = overdue;
+        String[] data = {Property.getOwner(), Property.getEircode(), String.valueOf(year), String.valueOf(tax), String.valueOf(isTaxPaid), String.valueOf(overdue)};
+        //CSV.writeCSVFile("TaxDetails.csv", data);
     }
 
     public double getTax() {

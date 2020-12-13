@@ -13,26 +13,32 @@ public class PropertyOwner{
         currentYear = (LocalDate.now()).getYear();
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
+    public ArrayList<Property> getProperties() {
+        return properties;
+    }
+
     public void registerProperty(String address, String eircode, String location, double marketValue, boolean privateResidence){
         properties.add(new Property(this.owner, address, eircode, location, marketValue, privateResidence));
     }
 
-    //kinda working
     public String viewProperties(){
         String temp = "";
         for(Property n: properties){
-            Payment payment = new Payment(currentYear, n.getTax(),false, n.getOverdue());
-            payment.toString();
+            n.save(new Payment(currentYear, n.getTax(),false, n.getOverdue()));
+            n.fillFullPaymentRecord();
+            temp += n.toString() + n.taxToString();
         }
         return temp;
     }
 
-    //myChosenYear needs to be changed back to currentYear after testing. Also changed in Property class. FIX
-    public void makePayment(Property p, int myChosenYear) {
-        Payment payment = new Payment(myChosenYear, p.getTax(),true, p.getOverdue());
-        p.save(payment);
+    public void makePayment(Property p) {
         p.fillFullPaymentRecord();
-        System.out.print(p.toString());
+        p.check(currentYear);
+        p.fillFullPaymentRecord();
     }
 
     public String specificQuery(int year){
@@ -52,9 +58,10 @@ public class PropertyOwner{
         String list = "";
         for(Property n: properties){
             if(n == p){
+                list = n.toString();
                 ArrayList<Payment> temp =  n.getFullPaymentRecord();
                 for(Payment m: temp){
-                        list += n.toString() + m.toString();
+                    list += m.toString();
                 }
             }
         }
