@@ -135,6 +135,19 @@ public class Property {
         }
         save(new Payment(year, getTax(), true, getOverdue(), owner, eircode));
     }
+    
+     public boolean isPropertyinCSV(){
+        ArrayList properties = CSV.readCSVFile("PropertyDetails.csv");
+        String[] headings = (String[]) properties.get(0);
+        boolean added = false;
+
+        int index = 0;
+        for (int i = 0; i < headings.length; i++) {
+            if (headings[i].trim().equalsIgnoreCase("Eircode")) {
+                index = i;
+                break;
+            }
+        }
 
     public String toString() {
         return "Property:\n" + "Owner: " + owner + ", Address: " + address + ", Eircode: "
