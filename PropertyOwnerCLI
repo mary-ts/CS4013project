@@ -19,7 +19,8 @@ public class PropertyOwnerCLI {
             System.out.println("Property Owner Name: ");
             String name = in.nextLine();
             PropertyOwner p = new PropertyOwner(name);
-            System.out.println("R)egister property, S)how properties, P)ay Tax, V)iew Payments");
+            
+            System.out.println("R)egister property, S)how properties, P)ay Tax, V)iew Payments, Q)uit");
             command = in.nextLine().toUpperCase();
            
             if (command.equals("R"))
@@ -31,28 +32,29 @@ public class PropertyOwnerCLI {
                 System.out.println("Enter location (City, Large Town, Small Town, Village, Countryside): ");
                 String location = in.nextLine();
                 System.out.println("Enter market value: ");
-                double mVal = in.nextDouble();
+                String mVal = in.nextLine();
                 System.out.println("Private Residence? true/false: ");
-                boolean priv = in.nextBoolean();
-                p.registerProperty(address, eir, location, mVal, priv);
+                String priv = in.nextLine();
+                p.registerProperty(address, eir, location, Double.valueOf(mVal), Boolean.valueOf(priv));
 
             }  else if (command.equals("S")) {
-               System.out.println( p.viewProperties());               
+               p.viewProperties();               
            
             } else if (command.equals("P")) {
             	
-            	System.out.println("Enter the Eircode of the Property which tax you want to pay");
-                 System.out.println("Enter Eircode: ");
-                 String eir = in.nextLine();
+            	System.out.println("Enter the Eircode of the Property which tax you want to pay: ");
+            	String eir = in.nextLine(); 
                  p.makePayment(eir);
                  
            
             } else if (command.equals("V")) {
-            	System.out.println("Enter the Eircode of the Property which tax you want to pay");
-                System.out.println("Enter Eircode: ");
-                String eir = in.nextLine();
-                p.specificQuery(eir);
+            	System.out.println("Enter the Eircode of the Property which payments you want to see: ");
+            	String eir = in.nextLine();
+         
+               System.out.println( p.specificQuery(eir));
                 
+            }else if (command.equals("Q")) {
+            	break;
             }
                     
         }
