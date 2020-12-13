@@ -4,9 +4,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/* 
-    @Author: Luke O Loughlin, 19231326
-    */
+/*
+ @authors - Tamara Lawlor - 19276494, Luke O Loughlin - 19231326
+*/
 
 public class GUI implements ActionListener {
     private JFrame frame;
@@ -133,7 +133,7 @@ public class GUI implements ActionListener {
         btnPropTax2 = new JButton("by Owner");
         btnOverdueTax1 = new JButton("All");
         btnOverdueTax2 = new JButton("Eircode");
-        //btnBack
+
 
         btnStatistics.addActionListener(this);
         btnNewRates.addActionListener(this);
@@ -157,10 +157,10 @@ public class GUI implements ActionListener {
         frame.setContentPane(panelManage);
     }
 
-    private JPanel panelReg;
-    private JLabel lblAddress, lblEircode, lblEircode2, lblLocation, lblMarketValue, lblPrivateResidence;
-    private JTextField txtAddress, txtEircode, txtEircode2, txtLocation, txtMarketValue, txtPrivateResidence;
-    private JButton btnActuallyRegProp, btnGetTaxStats;
+    private JPanel panelReg, panelTax, panelOverdueTax, panelRates;
+    private JLabel lblAddress, lblEircode, lblEircode2, lblLocation, lblMarketValue, lblPrivateResidence, lblOwner;
+    private JTextField txtAddress, txtEircode, txtEircode2, txtLocation, txtMarketValue, txtPrivateResidence, txtOwner;
+    private JButton btnActuallyRegProp, btnGetTaxStats, btnViewTax, btnViewTax2, btnTax1, btnTax2, btnBack2;
 
     public void registerProp(){
         panelReg = new JPanel();
@@ -207,31 +207,163 @@ public class GUI implements ActionListener {
     public void getStatistics(){
         panelStat = new JPanel();
         panelStat.setLayout(new FlowLayout());
-//        panelStat.setLayout(new GridLayout(1, 1));
-//        display = new JTextArea(10, 15);
+        display = new JTextArea(10, 15);
 
 
         lblEircode2 = new JLabel("Eircode: ");
         txtEircode2 = new JTextField(10);
         btnGetTaxStats = new JButton("Calculate Statistics");
+        btnBack2 = new JButton("Back");
+        btnBack2.addActionListener(this);
+
+
 
         btnGetTaxStats.addActionListener(this);
 
         panelStat.add(lblEircode2);
         panelStat.add(txtEircode2);
         panelStat.add(btnGetTaxStats);
+        panelStat.add(display);
+        panelStat.add(btnBack2);
+
 
         frame.remove(panelManage);
         frame.setContentPane(panelStat);
 
     }
 
+    public void getTaxEircode(){
+        panelTax = new JPanel();
+        panelTax.setLayout(new FlowLayout());
+        display = new JTextArea(10, 20);
+
+
+        lblEircode = new JLabel("Eircode: ");
+        txtEircode = new JTextField(10);
+        btnViewTax = new JButton("View property Tax");
+        btnBack2 = new JButton("Back");
+
+        btnBack2.addActionListener(this);
+        btnViewTax.addActionListener(this);
+
+        panelTax.add(lblEircode);
+        panelTax.add(txtEircode);
+        panelTax.add(btnViewTax);
+        panelTax.add(display);
+        panelTax.add(btnBack2);
+
+        frame.remove(panelManage);
+        frame.setContentPane(panelTax);
+
+    }
+
+    public void getTaxOwner(){
+        panelTax = new JPanel();
+        panelTax.setLayout(new FlowLayout());
+        display = new JTextArea(10, 20);
+
+
+        lblOwner = new JLabel("Owner: ");
+        txtOwner = new JTextField(10);
+        btnViewTax2 = new JButton("View property Tax");
+        btnBack2 = new JButton("Back");
+
+
+        btnViewTax.addActionListener(this);
+        btnBack2.addActionListener(this);
+
+
+        panelTax.add(lblOwner);
+        panelTax.add(txtOwner);
+        panelTax.add(btnViewTax);
+        panelTax.add(display);
+        panelTax.add(btnBack2);
+
+        frame.remove(panelManage);
+        frame.setContentPane(panelTax);
+
+    }
+
+    public void overdueTaxEircode(){
+        panelOverdueTax = new JPanel();
+        panelOverdueTax.setLayout(new FlowLayout());
+        display = new JTextArea(10, 20);
+
+
+        lblOwner = new JLabel("Year: ");
+        txtOwner = new JTextField(10);
+        lblEircode = new JLabel("Eircode: ");
+        txtEircode = new JTextField(10);
+        btnTax2 = new JButton("View overdue Tax");
+        btnBack2 = new JButton("Back");
+
+
+        btnTax2.addActionListener(this);
+        btnBack2.addActionListener(this);
+
+
+        panelOverdueTax.add(lblOwner);
+        panelOverdueTax.add(txtOwner);
+        panelOverdueTax.add(lblEircode);
+        panelOverdueTax.add(txtEircode);
+        panelOverdueTax.add(btnTax2);
+        panelOverdueTax.add(display);
+        panelOverdueTax.add(btnBack2);
+
+        frame.remove(panelManage);
+        frame.setContentPane(panelOverdueTax);
+
+    }
+
+    public void overdueTaxAll(){
+        panelOverdueTax = new JPanel();
+        panelOverdueTax.setLayout(new FlowLayout());
+        display = new JTextArea(10, 20);
+
+
+        lblOwner = new JLabel("Year: ");
+        txtOwner = new JTextField(10);
+        btnTax1 = new JButton("View overdue Tax");
+        btnBack2 = new JButton("Back");
+
+
+        btnTax1.addActionListener(this);
+        btnBack2.addActionListener(this);
+
+
+        panelOverdueTax.add(lblOwner);
+        panelOverdueTax.add(txtOwner);
+        panelOverdueTax.add(btnTax1);
+        panelOverdueTax.add(display);
+        panelOverdueTax.add(btnBack2);
+
+        frame.remove(panelManage);
+        frame.setContentPane(panelOverdueTax);
+    }
+
+    public void showChangedRates(){
+        panelRates = new JPanel();
+        display = new JTextArea(10, 20);
+        btnBack2 = new JButton("Back");
+
+        btnBack2.addActionListener(this);
+
+        panelRates.add(display);
+        panelRates.add(btnBack2);
+
+
+        frame.remove(panelManage);
+        frame.setContentPane(panelRates);
+    }
+
+
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == btnOwnerLogin){
             name = txtOwnerName.getText();
             ownerInit();
-        } else {
+        }
+        if(e.getSource() == btnManagement){
             managementInit();
         }
         if(e.getSource() == btnRegisterProp){
@@ -249,6 +381,14 @@ public class GUI implements ActionListener {
             frame.remove(panelReg);
             frame.setContentPane(panelOwner);
         }
+        if(e.getSource() == btnBack2){
+            frame.remove(panelReg);
+            frame.remove(panelOverdueTax);
+            frame.remove(panelRates);
+            frame.remove(panelTax);
+            frame.remove(panelStat);
+            frame.setContentPane(panelManage);
+        }
         if(e.getSource() == btnViewProperty){
             display.setText(p.viewProperties());
         }
@@ -264,9 +404,43 @@ public class GUI implements ActionListener {
             getStatistics();
         }
         if(e.getSource() == btnGetTaxStats){
-            String eircode = txtEircode.getText();
-            m.getTaxStatistics(eircode);
+            String eircode = txtEircode2.getText().toUpperCase();
+            display.setText(m.getTaxStatistics(eircode));
         }
+        if(e.getSource() == btnPropTax1){
+            getTaxEircode();
+        }
+        if(e.getSource() == btnPropTax2){
+            getTaxOwner();
+        }
+        if(e.getSource() == btnViewTax){
+            String eircode = txtEircode.getText().toUpperCase();
+            display.setText(m.getPropertyTaxFromProperty(eircode));
+        }
+        if(e.getSource() == btnViewTax2){
+            String owner = txtOwner.getText();
+            display.setText(m.getPropertyTaxFromOwner(new PropertyOwner(owner)));
+        }
+        if(e.getSource() == btnOverdueTax1){
+            overdueTaxAll();
+        }
+        if(e.getSource() == btnOverdueTax2){
+            overdueTaxEircode();
+        }
+        if(e.getSource() == btnTax1){
+            String year = txtOwner.getText();
+            display.setText(m.getOverdue(Integer.valueOf(year)));
+        }
+        if(e.getSource() == btnTax2){
+            String year = txtOwner.getText();
+            String eircode = txtEircode.getText();
+            display.setText(m.getOverdue(Integer.valueOf(year), eircode));
+        }
+        if(e.getSource() == btnNewRates){
+            showChangedRates();
+            display.setText(m.testRates());
+        }
+
         frame.validate();
         frame.repaint();
     }
