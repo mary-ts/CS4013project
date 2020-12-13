@@ -3,7 +3,7 @@ import java.util.Arrays;
 public class TaxCalculator {
 
     public double totalTax, marketTax, locationTax;
-    private double fixedCost = 100;
+    private double fixedCost;
     private double[] value;
     private double[] rate;
 
@@ -11,13 +11,15 @@ public class TaxCalculator {
     private int[] locationVals;
 
     public TaxCalculator() {
+        fixedCost = 100;
         value = new double[]{0, 150000, 400000, 650000};
         rate = new double[]{0, .01, .02, .04};
         locations = new String[]{"City","Large Town", "Small Town", "Village", "Countryside"};
         locationVals = new int[]{100, 80, 60, 50, 25};
     }
 
-    public TaxCalculator(double[] value, double[] rate, String[] locations, int[] locationVals) {
+    public TaxCalculator(double fixedCost, double[] value, double[] rate, String[] locations, int[] locationVals) {
+        this.fixedCost = fixedCost;
         this.value = value;
         this.rate = rate;
         this.locations = locations;
@@ -47,16 +49,16 @@ public class TaxCalculator {
     }
 
     public double getTotalTax(Property p) {
-        if(p.isPrivateResidence() == true) {
+        if(p.isPrivateResidence()) {
             fixedCost += 100;
         }
         totalTax = ((p.getMarketValue()/100)*getMarketTax(p)) +
                 getLocationTax(p) + fixedCost;
         return totalTax;
     }
-    
+
     public double unpaidPenalty(double x) {
-		x = x + ((x/100)*7);
-		return x;
-	}
+        x = x + ((x/100)*7);
+        return x;
+    }
 }
