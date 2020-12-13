@@ -1,54 +1,53 @@
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 public class Payment {
-    TaxCalculator taxCalc;
-    private double payment;
-    private double tax;
-    private double balance;
-    
     private int year;
+    private boolean isTaxPaid;
+    private double tax;
+    private double overdue;
 
-    public Payment(Property property, double amount){
-        taxCalc = new TaxCalculator();
-        this.year = (LocalDate.now()).getYear();
-        payment = amount;
-        setTax();
-        setPayment(amount);
-        makePayment();
+    public Payment(int year, double tax, boolean isTaxPaid, double overdue, String owner, String eircode){
+        this.year = year;
+        this.isTaxPaid = isTaxPaid;
+        this.tax = tax;
+        this.overdue = overdue;
+        String[] data = {owner, eircode, String.valueOf(year), String.valueOf(tax), String.valueOf(isTaxPaid), String.valueOf(overdue)};
+        //CSV.writeCSVFile("TaxDetails.csv", data);
     }
 
-    public void setPayment(double amount){
-        payment = amount;
-    }
-
-    public double getPayment(){
-        return payment;
-    }
-
-    public void setTax(){
-        tax = taxCalc.getTotalTax();
-    }
-
-    public double getTax(){
+    public double getTax() {
         return tax;
     }
 
-    public void makePayment(){
-        balance = tax - payment;
-    }
-
-    public double getBalance() {
-        return balance;
+    public void setTax(double tax) {
+        this.tax = tax;
     }
 
     public int getYear() {
         return year;
     }
 
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public boolean getIsTaxPaid() {
+        return isTaxPaid;
+    }
+
+    public void setIsTaxPaid(boolean isTaxPaid) {
+        this.isTaxPaid = isTaxPaid;
+    }
+
+    public double getOverdue() {
+        return overdue;
+    }
+
+    public void setOverdue(double overdue) {
+        this.overdue = overdue;
+    }
+
     public String toString(){
-        return year + " Tax due: €" + tax + "   Amount paid: €" + payment + "   Left to pay: €"
-                + balance + "\n";
+        return year + " Tax due: €" + tax + "   Is tax paid: " + isTaxPaid + "   Overdue: €"
+                + overdue + "\n";
     }
 
 }
