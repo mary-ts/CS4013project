@@ -14,6 +14,10 @@ public class Property {
     private double overdue;
 
 
+    /* 
+        @Author: Tamara Lawlor, 19276494
+        */
+    
     public Property(String owner, String address, String eircode, String location, double marketValue, boolean privateResidence) {
         this.owner = owner;
         this.address = address;
@@ -72,6 +76,10 @@ public class Property {
         return yearCreated;
     }
 
+        /* 
+        @Author: Luke O' Loughlin, 19231326
+        */
+    
     public double getTax() {
         return tax;
     }
@@ -163,6 +171,10 @@ public class Property {
                 ", PrivateResidence: " + privateResidence + "\n";
     }
 
+    
+    /* 
+        @Author: Tamara Lawlor, 19276494
+        */
     public String taxToString() {
         return fullPaymentRecord.get(fullPaymentRecord.size() - 1).toString();
     }
