@@ -1,0 +1,29 @@
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main (String[]args) throws IOException {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Are you a P)roperty Owner or M)anagement Q)uit");
+        boolean more = true;
+
+        while (more) {
+            String command = scan.nextLine().toUpperCase();
+            if (command.equals("P")) {
+                more = false;
+                PropertyOwnerCLI propertyMenu = new PropertyOwnerCLI();
+                propertyMenu.run();
+            } else if (command.equals("M")) {
+                more = false;
+                ManagementCLI manageMenu = new ManagementCLI();
+                Management p = new Management();
+                manageMenu.run(p);
+            } else if (command.equals("Q")) {
+                more = false;
+                scan.close();
+            }
+        }
+
+    }
+}
