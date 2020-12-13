@@ -1,0 +1,4 @@
+Owner, Eircode, Year,Tax Amount, Paid, Overdue Amount
+Mary, P81 X768, 2019, 300.50, false, 300.50
+Rachel, V98 D266, 2019, 400, true, 0
+Rachel,P66 D222,2020,220.0,false,0.0
