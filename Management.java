@@ -44,6 +44,64 @@ public class Management {
         }
     }
 
+    public void getOverdue(int year){
+        ArrayList data = CSV.readCSVFile("Payments.csv");
+        String[] headings = (String[]) data.get(0);
+
+        int index = 0;
+        int paidIndex = 0;
+        for (int i = 0; i < headings.length; i++) {
+            if (headings[i].trim().equalsIgnoreCase("Year")) {
+                index = i;
+            }
+            if (headings[i].trim().equalsIgnoreCase("Paid")) {
+                paidIndex = i;
+            }
+        }
+
+        for (int i = 1; i < data.size(); i++) {
+            String[] tmp = (String[]) data.get(i);
+            if (Integer.parseInt(tmp[index].trim()) == year && tmp[paidIndex].trim().equalsIgnoreCase("false")) {
+                System.out.println(Arrays.toString(tmp));
+            }
+        }
+
+    }
+
+    public void getOverdue(int year, String eircode){
+        String[] split = eircode.split(" ");
+        String routingKey = split[0];
+
+        ArrayList data = CSV.readCSVFile("Payments.csv");
+        String[] headings = (String[]) data.get(0);
+
+        int index = 0;
+        int paidIndex = 0;
+        int eirIndex = 0;
+        for (int i = 0; i < headings.length; i++) {
+            if (headings[i].trim().equalsIgnoreCase("Year")) {
+                index = i;
+            }
+            if (headings[i].trim().equalsIgnoreCase("Eircode")) {
+                eirIndex = i;
+            }
+            if (headings[i].trim().equalsIgnoreCase("Paid")) {
+                paidIndex = i;
+            }
+        }
+
+        for (int i = 1; i < data.size(); i++) {
+            String[] tmp = (String[]) data.get(i);
+            if (Integer.parseInt(tmp[index].trim()) == year &&
+                    tmp[eirIndex].trim().contains(routingKey) &&
+                    tmp[paidIndex].trim().equalsIgnoreCase("false")) {
+                System.out.println(Arrays.toString(tmp));
+            }
+        }
+
+    }
+
+    //START FOR LOOP AT INDEX 1???????
     private double getTotalTax(String eircode){
         String[] split = eircode.split(" ");
         String routingKey = split[0];
