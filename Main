@@ -3,6 +3,10 @@ import java.util.Scanner;
 
 public class Main {
 
+/*
+        @Author: Tamara lawlor, 19276494
+        */
+
     public static void main (String[]args) throws IOException {
         Scanner scan = new Scanner(System.in);
         System.out.println("Are you a P)roperty Owner or M)anagement Q)uit");
