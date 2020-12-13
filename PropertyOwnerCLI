@@ -59,8 +59,9 @@ public class CLI {
             	int year = in.nextInt();
             
             	p.makePayment(prop, year);
-            } else if (command.equals("V")) {
-            	// insert payments made here //
+           
+           } else if (command.equals("V")) {
+            		System.out.println(p.specificQuery(  OwO  ));
             }
             
             
