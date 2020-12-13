@@ -4,6 +4,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+/*
+    @Auther: Tamara Lawlor, 19276494
+    
+    */
+
 public class CSV {
 public static ArrayList<String[]> readCSVFile(String file){
     String[] line;
