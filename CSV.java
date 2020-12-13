@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 /*
-    @Auther: Tamara Lawlor, 19276494
+    @Author: Tamara Lawlor, 19276494
     
     */
 
