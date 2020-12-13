@@ -2,6 +2,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Management {
+    
+    /* 
+        @Author: Tamara Lawlor, 19276494
+        */
 
     public String getPropertyTaxFromOwner(PropertyOwner p) {
         ArrayList data = CSV.readCSVFile("Payments.csv");
