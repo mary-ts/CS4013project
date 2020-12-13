@@ -1,13 +1,12 @@
-
 import java.io.IOException;
 import java.util.Scanner;
 
 
-public class CLI {
+public class PropertyOwnerCLI {
     private Scanner in;
     private String command;
 
-    public CLI() {
+    public PropertyOwnerCLI() {
         in = new Scanner(System.in);
     }
 
@@ -22,6 +21,7 @@ public class CLI {
             PropertyOwner p = new PropertyOwner(name);
             System.out.println("R)egister property, S)how properties, P)ay Tax, V)iew Payments");
             command = in.nextLine().toUpperCase();
+           
             if (command.equals("R"))
             {
                 System.out.println("Enter Address: ");
@@ -37,35 +37,24 @@ public class CLI {
                 p.registerProperty(address, eir, location, mVal, priv);
 
             }  else if (command.equals("S")) {
-               System.out.println( p.viewProperties());
-                
-                
+               System.out.println( p.viewProperties());               
+           
             } else if (command.equals("P")) {
             	
-            	System.out.println("Enter the details of the Property which tax you want to pay");
-            	 System.out.println("Enter Address: ");
-                 String address = in.nextLine();
+            	System.out.println("Enter the Eircode of the Property which tax you want to pay");
                  System.out.println("Enter Eircode: ");
                  String eir = in.nextLine();
-                 System.out.println("Enter location (City, Large Town, Small Town, Village, Countryside): ");
-                 String location = in.nextLine();
-                 System.out.println("Enter market value: ");
-                 double mVal = in.nextDouble();
-                 System.out.println("Private Residence? true/false: ");
-                 boolean priv = in.nextBoolean();
-            	
-                 Property prop = new Property(name, address, eir, location, mVal, priv);
-            	System.out.println("Enter year of Tax to be paid: ");
-            	int year = in.nextInt();
-            
-            	p.makePayment(prop, year);
+                 p.makePayment(eir);
+                 
            
-           } else if (command.equals("V")) {
-            		System.out.println(p.specificQuery(  OwO  ));
+            } else if (command.equals("V")) {
+            	System.out.println("Enter the Eircode of the Property which tax you want to pay");
+                System.out.println("Enter Eircode: ");
+                String eir = in.nextLine();
+                p.specificQuery(eir);
+                
             }
-            
-            
-            
+                    
         }
 
     }
