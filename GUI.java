@@ -4,6 +4,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/* 
+    @Author: Luke O Loughlin, 19231326
+    */
+
 public class GUI implements ActionListener {
     private JFrame frame;
 
