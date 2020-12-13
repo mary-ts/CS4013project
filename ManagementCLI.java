@@ -6,6 +6,10 @@ public class ManagementCLI {
     private String command;
     private String command2;
     
+    /*
+        @Author: Rachel O'Donoghue, 19274505
+        */
+    
     public ManagementCLI(){
         in = new Scanner(System.in);
     }
