@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Property {
     private TaxCalculator taxCalc;
@@ -28,9 +29,12 @@ public class Property {
         permanentTax = taxCalc.getTotalTax(this);
         tax = permanentTax;
         String[] data = {owner, address, eircode, location, String.valueOf(marketValue), String.valueOf(privateResidence)};
-        CSV.writeCSVFile("PropertyDetails.csv", data);
-        save(new Payment(yearCreated, this.getTax(), false, this.getOverdue()));
-        fillFullPaymentRecord();
+
+        if (isPropertyinCSV()) {
+            CSV.writeCSVFile("PropertyDetails.csv", data);
+            save(new Payment(yearCreated, this.getTax(), false, this.getOverdue()));
+            fillFullPaymentRecord();
+        }
     }
 
     public static String getOwner() {
@@ -71,6 +75,10 @@ public class Property {
 
     public double getTax() {
         return tax;
+    }
+
+    public void setTax(double tax) {
+        this.tax = tax;
     }
 
     public double getOverdue() {
@@ -131,6 +139,27 @@ public class Property {
             }
         }
         save(new Payment(year, getTax(), true, getOverdue()));
+    }
+
+    public boolean isPropertyinCSV(){
+        ArrayList properties = CSV.readCSVFile("PropertyDetails.csv");
+        String[] headings = (String[]) properties.get(0);
+        boolean added = false;
+
+        int index = 0;
+        for (int i = 0; i < headings.length; i++) {
+            if (headings[i].trim().equalsIgnoreCase("Eircode")) {
+                index = i;
+                break;
+            }
+        }
+
+        for (int i = 0; i < properties.size(); i++) {
+            String[] tmp = (String[]) properties.get(i);
+            if (tmp[index].trim().equals(eircode))
+                added = true;
+        }
+        return added;
     }
 
     public String toString() {
