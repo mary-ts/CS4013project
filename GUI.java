@@ -11,7 +11,6 @@ public class GUI implements ActionListener {
     private JLabel lblPersonType, lblOwnerName;
     private JTextField txtOwnerName;
     private JButton btnOwnerLogin, btnManagement, btnBack;
-    private JScrollPane vertScroll, horzScroll;
 
 
 
@@ -63,10 +62,12 @@ public class GUI implements ActionListener {
 
     private String name;
     private PropertyOwner p;
-    private JPanel panelOwner;
-    private JLabel lblWelcome, lblQueryYear, lblQueryProp;
+    private  Management m;
+    private JPanel panelOwner, panelStat, panelManage;
+    private JLabel lblWelcome, lblQueryYear, lblQueryProp, lblPropTax, lblOverdueTax, lblOther;
     private JTextField txtQueryYear, txtQueryProp;
-    private JButton btnRegisterProp, btnViewProperty, btnQueryYear, btnQueryProp;
+    private JButton btnRegisterProp, btnViewProperty, btnQueryYear, btnQueryProp,
+            btnPropTax1, btnPropTax2, btnStatistics, btnNewRates, btnOverdueTax1, btnOverdueTax2;
     private JTextArea display;
 
     private void ownerInit() {
@@ -114,10 +115,48 @@ public class GUI implements ActionListener {
         frame.setContentPane(panelOwner);
     }
 
+    private void managementInit() {
+        m = new Management();
+        panelManage = new JPanel();
+        panelManage.setLayout(new GridLayout(3,3,1,1));
+
+        lblPropTax = new JLabel("View property tax:");
+        lblOverdueTax = new JLabel("View overdue tax:");
+        lblOther = new JLabel("Other:");
+        btnStatistics = new JButton("Payment Statistics");
+        btnNewRates = new JButton("Change tax rates");
+        btnPropTax1 = new JButton("by Eircode");
+        btnPropTax2 = new JButton("by Owner");
+        btnOverdueTax1 = new JButton("All");
+        btnOverdueTax2 = new JButton("Eircode");
+        //btnBack
+
+        btnStatistics.addActionListener(this);
+        btnNewRates.addActionListener(this);
+        btnPropTax1.addActionListener(this);
+        btnPropTax2.addActionListener(this);
+        btnOverdueTax1.addActionListener(this);
+        btnOverdueTax2.addActionListener(this);
+
+
+        panelManage.add(lblPropTax);
+        panelManage.add(btnPropTax1);
+        panelManage.add(btnPropTax2);
+        panelManage.add(lblOverdueTax);
+        panelManage.add(btnOverdueTax1);
+        panelManage.add(btnOverdueTax2);
+        panelManage.add(lblOther);
+        panelManage.add(btnStatistics);
+        panelManage.add(btnNewRates);
+
+        frame.remove(panelIdentity);
+        frame.setContentPane(panelManage);
+    }
+
     private JPanel panelReg;
-    private JLabel lblAddress, lblEircode, lblLocation, lblMarketValue, lblPrivateResidence;
-    private JTextField txtAddress, txtEircode, txtLocation, txtMarketValue, txtPrivateResidence;
-    private JButton btnActuallyRegProp;
+    private JLabel lblAddress, lblEircode, lblEircode2, lblLocation, lblMarketValue, lblPrivateResidence;
+    private JTextField txtAddress, txtEircode, txtEircode2, txtLocation, txtMarketValue, txtPrivateResidence;
+    private JButton btnActuallyRegProp, btnGetTaxStats;
 
     public void registerProp(){
         panelReg = new JPanel();
@@ -161,11 +200,35 @@ public class GUI implements ActionListener {
 
     }
 
+    public void getStatistics(){
+        panelStat = new JPanel();
+        panelStat.setLayout(new FlowLayout());
+//        panelStat.setLayout(new GridLayout(1, 1));
+//        display = new JTextArea(10, 15);
+
+
+        lblEircode2 = new JLabel("Eircode: ");
+        txtEircode2 = new JTextField(10);
+        btnGetTaxStats = new JButton("Calculate Statistics");
+
+        btnGetTaxStats.addActionListener(this);
+
+        panelStat.add(lblEircode2);
+        panelStat.add(txtEircode2);
+        panelStat.add(btnGetTaxStats);
+
+        frame.remove(panelManage);
+        frame.setContentPane(panelStat);
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == btnOwnerLogin){
             name = txtOwnerName.getText();
             ownerInit();
+        } else {
+            managementInit();
         }
         if(e.getSource() == btnRegisterProp){
             registerProp();
@@ -192,6 +255,13 @@ public class GUI implements ActionListener {
         if(e.getSource() == btnQueryProp){
             String eircode = txtQueryProp.getText();
             display.setText(p.specificQuery(eircode));
+        }
+        if(e.getSource() == btnStatistics){
+            getStatistics();
+        }
+        if(e.getSource() == btnGetTaxStats){
+            String eircode = txtEircode.getText();
+            m.getTaxStatistics(eircode);
         }
         frame.validate();
         frame.repaint();
