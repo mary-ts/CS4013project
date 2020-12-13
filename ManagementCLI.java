@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 import java.io.IOException;
 
@@ -25,24 +24,27 @@ public class ManagementCLI {
                     p.getPropertyTaxFromProperty(code);
                 } else if (command2.equals("O")) {
                     System.out.println("Please specify owner:");
-                    String owner = in.nextLine();
-                    p.getPropertyTaxFromOwner(new PropertyOwner(owner));
+                    command2 = in.nextLine();
+                    p.getPropertyTaxFromOwner(new PropertyOwner(command2));
                 }
             } else if(command.equals("2")) {
                 System.out.println("Please enter year:");
-                int option = in.nextInt();
-                System.out.println("Do you want data from 1) All property in that year or 2) eircode");
-                option = in.nextInt();
-                if (option == 1) {
-
+                int year = in.nextInt();
+                System.out.println("Do you want data from A)ll or S)pecific area?");
+                year = in.nextInt();
+                if (command2.equals("A")) {
+                	p.getOverdue(year);
+                } else if(command2.equals("S")) {
+                	System.out.println("Enter Eircode:");
+                	command2 = in.nextLine();
+                	p.getOverdue(year, command2);
                 }
-                //p.getOverdueTax(option, code);
             } else if(command.equals("3")) {
                 System.out.println("Enter eircode: ");
-                String code = in.nextLine().toUpperCase();
-                p.getTaxStatistics(code);
+                command2 = in.nextLine().toUpperCase();
+                p.getTaxStatistics(command2);
             } else if(command.equals("4")) {
-
+            	
             } else if(command.equals("5")) {
                 break;
             }
