@@ -1,6 +1,9 @@
 import java.util.Arrays;
 
 public class TaxCalculator {
+    /* 
+        @Author: Mary Tease, 19256434
+        */
 
     public double totalTax, marketTax, locationTax;
     private double fixedCost;
