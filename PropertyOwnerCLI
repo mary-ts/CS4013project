@@ -41,8 +41,24 @@ public class CLI {
                 
                 
             } else if (command.equals("P")) {
-            	// insert payment method here //
-           
+            	
+            	System.out.println("Enter the details of the Property which tax you want to pay");
+            	 System.out.println("Enter Address: ");
+                 String address = in.nextLine();
+                 System.out.println("Enter Eircode: ");
+                 String eir = in.nextLine();
+                 System.out.println("Enter location (City, Large Town, Small Town, Village, Countryside): ");
+                 String location = in.nextLine();
+                 System.out.println("Enter market value: ");
+                 double mVal = in.nextDouble();
+                 System.out.println("Private Residence? true/false: ");
+                 boolean priv = in.nextBoolean();
+            	
+                 Property prop = new Property(name, address, eir, location, mVal, priv);
+            	System.out.println("Enter year of Tax to be paid: ");
+            	int year = in.nextInt();
+            
+            	p.makePayment(prop, year);
             } else if (command.equals("V")) {
             	// insert payments made here //
             }
