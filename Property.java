@@ -149,6 +149,14 @@ public class Property {
             }
         }
 
+        for (int i = 0; i < properties.size(); i++) {
+            String[] tmp = (String[]) properties.get(i);
+            if (tmp[index].trim().equals(eircode))
+                added = true;
+        }
+        return added;
+    }
+    
     public String toString() {
         return "Property:\n" + "Owner: " + owner + ", Address: " + address + ", Eircode: "
                 + eircode + ", Location: " + location + ", MarketValue: " + marketValue +
