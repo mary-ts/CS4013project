@@ -2,8 +2,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Management {
-    private Payment payments;
-    private PropertyOwner property;
 
     public void getPropertyTaxFromOwner(PropertyOwner p) {
         ArrayList data = CSV.readCSVFile("Payments.csv");
@@ -17,7 +15,7 @@ public class Management {
             }
         }
 
-        for (int i=0; i<data.size(); i++) {
+        for (int i=1; i<data.size(); i++) {
             String[] tmp = (String[]) data.get(i);
             if (tmp[index].trim().equalsIgnoreCase(p.getOwner())) {
                 System.out.println(Arrays.toString(tmp));
@@ -37,7 +35,7 @@ public class Management {
             }
         }
 
-        for (int i = 0; i < data.size(); i++) {
+        for (int i = 1; i < data.size(); i++) {
             String[] tmp = (String[]) data.get(i);
             if (tmp[index].trim().equals(eircode))
                 System.out.println(Arrays.toString(tmp));
@@ -59,7 +57,7 @@ public class Management {
             }
         }
 
-        for (int i = 1; i < data.size(); i++) {
+        for (int i = 1; i < data.size()-1; i++) {
             String[] tmp = (String[]) data.get(i);
             if (Integer.parseInt(tmp[index].trim()) == year && tmp[paidIndex].trim().equalsIgnoreCase("false")) {
                 System.out.println(Arrays.toString(tmp));
@@ -90,7 +88,7 @@ public class Management {
             }
         }
 
-        for (int i = 1; i < data.size(); i++) {
+        for (int i = 1; i < data.size()-1; i++) {
             String[] tmp = (String[]) data.get(i);
             if (Integer.parseInt(tmp[index].trim()) == year &&
                     tmp[eirIndex].trim().contains(routingKey) &&
@@ -101,7 +99,6 @@ public class Management {
 
     }
 
-    //START FOR LOOP AT INDEX 1???????
     private double getTotalTax(String eircode){
         String[] split = eircode.split(" ");
         String routingKey = split[0];
@@ -116,13 +113,13 @@ public class Management {
             if (headings[i].trim().equalsIgnoreCase("Eircode")) {
                 index = i;
             }
-            if (headings[i].trim().equalsIgnoreCase("Tax")) {
+            if (headings[i].trim().equalsIgnoreCase("Tax Amount")) {
                 taxIndex = i;
                 break;
             }
         }
 
-        for (int i = 0; i < data.size(); i++) {
+        for (int i = 1; i < data.size(); i++) {
             String[] tmp = (String[]) data.get(i);
             if (tmp[index].trim().contains(routingKey)) {
                 totalTax = totalTax + Double.parseDouble(tmp[taxIndex]);
@@ -145,13 +142,13 @@ public class Management {
             if (headings[i].trim().equalsIgnoreCase("Eircode")) {
                 index = i;
             }
-            if (headings[i].trim().equalsIgnoreCase("Tax")) {
+            if (headings[i].trim().equalsIgnoreCase("Tax Amount")) {
                 taxIndex = i;
             }
         }
 
         int numProps = 0;
-        for (int i = 0; i < data.size(); i++) {
+        for (int i = 1; i < data.size(); i++) {
             String[] tmp = (String[]) data.get(i);
             if (tmp[index].trim().contains(routingKey)) {
                 averageTax = averageTax + Double.parseDouble(tmp[taxIndex]);
@@ -181,7 +178,7 @@ public class Management {
         }
 
         int numProps = 0;
-        for (int i = 0; i < data.size(); i++) {
+        for (int i = 1; i < data.size(); i++) {
             String[] tmp = (String[]) data.get(i);
             if (tmp[index].trim().contains(routingKey) && tmp[paidIndex].trim().equalsIgnoreCase("true")) {
                 numProps ++;
@@ -206,7 +203,7 @@ public class Management {
         }
 
         int numProps = 0;
-        for (int i = 0; i < data.size(); i++) {
+        for (int i = 1; i < data.size(); i++) {
             String[] tmp = (String[]) data.get(i);
             if (tmp[index].trim().contains(routingKey)) {
                 numProps ++;
@@ -227,18 +224,16 @@ public class Management {
                 "\nPercent of Paid Taxes: " + percent + "%";
         System.out.println(s);
     }
-    
+
     public void testRates(){
         double fixedCost = 75;
         double[] value = new double[]{0, 100000, 300000, 500000};
-        double[] rate = new double[]{0, .03, .05, .07};
+        double[] rate = new double[]{0, .01, .02, .04};
         String[] locations = new String[]{"City","Large Town", "Small Town", "Village", "Countryside"};
-        int[] locationVals = new int[]{150, 100, 70, 40, 30};
+        int[] locationVals = new int[]{90, 75, 60, 40, 30};
         TaxCalculator newCalc = new TaxCalculator(fixedCost, value, rate, locations, locationVals);
 
         ArrayList data = CSV.readCSVFile("PropertyDetails.csv");
-        ArrayList<Property> properties = new ArrayList<>();
-        String[] headings = (String[]) data.get(0);
 
         double tax = 0;
         for (int i = 1; i < data.size(); i++) {
@@ -248,4 +243,5 @@ public class Management {
             System.out.println(p.toString() + "nex tax: €" + Math.round(tax*100.0)/100.0);
         }
         }
-}
+    }
+
