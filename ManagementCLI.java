@@ -13,7 +13,7 @@ public class ManagementCLI {
     public void run(Management p) throws IOException {
         boolean more = true;
         while(more) {
-            System.out.println("1) Property tax 2) Overdue tax 3) Payment stats 4) Change Tax 5) Quit");
+            System.out.println("1) Property Tax 2) Overdue Tax 3) Payment Statistics 4) Change Tax 5) Quit");
             command = in.nextLine().toUpperCase();
             if(command.equals("1")) {
                 System.out.println("Specify P)roperty or O)wner");
@@ -44,7 +44,7 @@ public class ManagementCLI {
                 command2 = in.nextLine().toUpperCase();
                 p.getTaxStatistics(command2);
             } else if(command.equals("4")) {
-            	
+            	p.testRates();
             } else if(command.equals("5")) {
                 break;
             }
