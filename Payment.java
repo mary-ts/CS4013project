@@ -3,6 +3,10 @@ public class Payment {
     private boolean isTaxPaid;
     private double tax;
     private double overdue;
+    
+    /* 
+        @Author: Rachel O' Donoghue, 19274505
+        */
 
     public Payment(int year, double tax, boolean isTaxPaid, double overdue, String owner, String eircode){
         this.year = year;
