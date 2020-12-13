@@ -227,4 +227,25 @@ public class Management {
                 "\nPercent of Paid Taxes: " + percent + "%";
         System.out.println(s);
     }
+    
+    public void testRates(){
+        double fixedCost = 75;
+        double[] value = new double[]{0, 100000, 300000, 500000};
+        double[] rate = new double[]{0, .03, .05, .07};
+        String[] locations = new String[]{"City","Large Town", "Small Town", "Village", "Countryside"};
+        int[] locationVals = new int[]{150, 100, 70, 40, 30};
+        TaxCalculator newCalc = new TaxCalculator(fixedCost, value, rate, locations, locationVals);
+
+        ArrayList data = CSV.readCSVFile("PropertyDetails.csv");
+        ArrayList<Property> properties = new ArrayList<>();
+        String[] headings = (String[]) data.get(0);
+
+        double tax = 0;
+        for (int i = 1; i < data.size(); i++) {
+            String[] tmp = (String[]) data.get(i);
+            Property p = new Property(tmp[0], tmp[1], tmp[2], tmp[3], Double.valueOf(tmp[4]), Boolean.valueOf(tmp[5]));
+            tax = newCalc.getTotalTax(p);
+            System.out.println(p.toString() + "nex tax: €" + Math.round(tax*100.0)/100.0);
+        }
+        }
 }
