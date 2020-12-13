@@ -1,0 +1,6 @@
+HOW TO RUN - https://github.com/mary-ts/CS4013project
+
+1) Download all files
+2) Open in editor, select main, and click run
+3) Upon prompt, enter P or M to run as either Property Owner or 
+   as Management respectively
