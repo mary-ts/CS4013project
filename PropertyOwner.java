@@ -7,6 +7,9 @@ public class PropertyOwner{
     private int currentYear;
 
 
+    /* 
+        @Author: Luke O' Loughlin, 19231326
+        */
     public PropertyOwner(String owner){
         this.owner = owner;
         properties = new ArrayList<>();
